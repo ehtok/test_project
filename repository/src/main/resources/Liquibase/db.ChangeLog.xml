@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="1" author="Roman_Yaskevich">
+        <comment>create table company</comment>
+        <sql>
+            create table company
+            (
+                id           int auto_increment
+                    primary key,
+                company_size varchar(255) null,
+                name         varchar(255) null,
+                type_company varchar(255) null
+            )
+        </sql>
+        <rollback>
+            drop table company
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2" author="Roman_Yaskevich">
+        <comment>create table location</comment>
+        <sql>
+            create table location
+            (
+                id     int auto_increment
+                    primary key,
+                city   varchar(255) null,
+                county varchar(255) null
+            )
+        </sql>
+        <rollback>
+            drop table location
+        </rollback>
+    </changeSet>
+
+    <changeSet id="3" author="Roman_Yaskevich">
+        <comment>create table vacancy</comment>
+        <sql>
+            create table vacancy
+            (
+                id                  int auto_increment
+                    primary key,
+                vacancy_description varchar(255) null,
+                location_id         int null,
+                constraint FK2sc3iub2mgrmsa7fnu3m83i6g
+                    foreign key (location_id) references location (id)
+            )
+        </sql>
+        <rollback>
+            drop table vacancy
+        </rollback>
+    </changeSet>
+
+    <changeSet id="4" author="Roman_Yaskevich">
+        <comment>create table course</comment>
+        <sql>
+            create table course
+            (
+                id                 int auto_increment
+                    primary key,
+                date_finish        varchar(255) null,
+                start_date         varchar(255) null,
+                course_description varchar(255) null,
+                location_id        int null,
+                constraint FK7v88d8vbbldwv0kt4ax9dvtvt
+                    foreign key (location_id) references location (id)
+            )
+        </sql>
+        <rollback>
+            drop table course
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="5" author="Roman_Yaskevich">
+        <comment>create table company_vacancy</comment>
+        <sql>
+            create table company_vacancy
+            (
+                id_company int not null,
+                id_vacancy int not null,
+                primary key (id_company, id_vacancy),
+                constraint FKj3f2edmsddt5jjb0qjhylqybv
+                    foreign key (id_vacancy) references vacancy (id),
+                constraint FKqyylqg81pc4fb1grqkmq0ryuk
+                    foreign key (id_company) references company (id)
+            );
+        </sql>
+        <rollback>
+            drop table company_vacancy
+        </rollback>
+    </changeSet>
+
+    <changeSet id="6" author="Roman_Yaskevich">
+        <comment>create table company_course</comment>
+        <sql>
+            create table company_course
+            (
+                id_company int not null,
+                id_vacancy int not null,
+                primary key (id_company, id_vacancy),
+                constraint FKdl3hm1qu1cwgj1jj8no2cicdu
+                    foreign key (id_vacancy) references course (id),
+                constraint FKr44lrjmf5mxn4vxoqt349eclb
+                    foreign key (id_company) references company (id)
+            );
+        </sql>
+        <rollback>
+            drop table company_course
+        </rollback>
+    </changeSet>
+
+
+    <changeSet id="7" author="Roman_Yaskevich">
+        <comment>create table level</comment>
+        <sql>
+            create table level
+            (
+                id    int auto_increment
+                    primary key,
+                Level varchar(255) null
+            )
+        </sql>
+        <rollback>
+            drop table level
+        </rollback>
+    </changeSet>
+
+    <changeSet id="8" author="Roman_Yaskevich">
+        <comment>create table specialization</comment>
+        <sql>
+            create table specialization
+            (
+                id         int auto_increment
+                    primary key,
+                experience varchar(255) null,
+                profession varchar(255) null,
+                salary     varchar(255) null,
+                level_id   int null,
+                vacancy_id int null,
+                constraint FK6n115ycewj0dvu2wep9jkxf2x
+                    foreign key (vacancy_id) references vacancy (id),
+                constraint FK8inyc5sdv2ta9ekjrlgvsm17l
+                    foreign key (level_id) references level (id)
+            )
+        </sql>
+        <rollback>
+            drop table specialization
+        </rollback>
+    </changeSet>
+
+    <changeSet id="9" author="Roman_Yaskevich">
+        <comment>create table technology</comment>
+        <sql>
+            create table technology
+            (
+                id                int auto_increment
+                    primary key,
+                name_technology   varchar(255) null,
+                specialization_id int null,
+                constraint FK47gu0vvotfr2un5aouk4tqanb
+                    foreign key (specialization_id) references specialization (id)
+            )
+        </sql>
+        <rollback>
+            drop table technology
+        </rollback>
+    </changeSet>
+
+
+</databaseChangeLog>
