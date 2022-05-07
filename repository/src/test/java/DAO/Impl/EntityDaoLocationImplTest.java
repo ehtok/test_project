@@ -32,7 +32,7 @@ public class EntityDaoLocationImplTest {
         daoLocation.save(expect);
         Location actual = daoLocation.findId(expect.getId());
         actual.setCountry(ConstantsLocation.LOCATION_COUNTRY_1);
-        actual.setCity(ConstantsLocation.LOCATION_COUNTRY_1);
+        actual.setCity(ConstantsLocation.LOCATION_CITY_1);
         daoLocation.update(actual);
         Assert.assertNotEquals(expect.toString(), actual.toString());
     }

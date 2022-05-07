@@ -2,6 +2,7 @@ import DAO.Impl.*;
 import Entity.*;
 import Utils.EntityFactoryManager;
 
+import java.util.List;
 import java.util.Set;
 
 public class App {
@@ -48,18 +49,22 @@ public class App {
 
         Vacancy vacancy = Vacancy.builder()
                 .description("Business Analyst")
+                .workingTime("Full-time")
                 .build();
 
         Vacancy vacancy1 = Vacancy.builder()
                 .description("Test")
+                .workingTime("Telework")
                 .build();
 
         Vacancy vacancy2 = Vacancy.builder()
                 .description("Developer")
+                .workingTime("Part-time")
                 .build();
 
         Vacancy vacancy3 = Vacancy.builder()
                 .description("Developer")
+                .workingTime("Telework")
                 .build();
 
         daoVacancy.save(vacancy);
@@ -82,24 +87,32 @@ public class App {
 
         Specialization specialization = Specialization.builder()
                 .profession("Java")
+                .professionLevel("Middle")
+                .languageLevel("B2")
                 .experience("5 years develop")
                 .salary("4000$")
                 .build();
 
         Specialization specialization1 = Specialization.builder()
                 .profession("QA")
+                .professionLevel("Team Lead")
+                .languageLevel("C1")
                 .experience("10 years QA")
                 .salary("5000$")
                 .build();
 
         Specialization specialization2 = Specialization.builder()
                 .profession("Business Analyst")
+                .professionLevel("Junior")
+                .languageLevel("B2")
                 .experience("2 years")
                 .salary("2000$")
                 .build();
 
         Specialization specialization3 = Specialization.builder()
                 .profession("Java")
+                .professionLevel("Junior")
+                .languageLevel("A2")
                 .experience("1 years ")
                 .salary("500$")
                 .build();
@@ -108,6 +121,7 @@ public class App {
         daoSpecialization.save(specialization1);
         daoSpecialization.save(specialization2);
         daoSpecialization.save(specialization3);
+
 
         EntityDaoCourseImpl daoCourse = new EntityDaoCourseImpl();
 
@@ -140,56 +154,20 @@ public class App {
         daoTechnology.save(technology1);
         daoTechnology.save(technology2);
 
-
-
-        technology.setSpecialization(daoSpecialization.findId(4));
-        technology1.setSpecialization(daoSpecialization.findId(4));
-        technology2.setSpecialization(daoSpecialization.findId(4));
-
-
-        daoTechnology.update(technology);
-        daoTechnology.update(technology1);
-        daoTechnology.update(technology2);
-
-        EntityDaoLevelImpl daoLevel = new EntityDaoLevelImpl();
-        Level level = Level.builder()
-                .level("Junior")
-                .build();
-
-        Level level1 = Level.builder()
-                .level("Middle")
-                .build();
-
-        Level level2 = Level.builder()
-                .level("Senior")
-                .build();
-
-        Level level3 = Level.builder()
-                .level("Intern")
-                .build();
-
-        Level level4 = Level.builder()
-                .level("Team Lead")
-                .build();
-
-        daoLevel.save(level);
-        daoLevel.save(level1);
-        daoLevel.save(level2);
-        daoLevel.save(level3);
-        daoLevel.save(level4);
-
+        specialization.setTechnology(List.of(technology, technology1, technology2));
+        specialization3.setTechnology(List.of(technology, technology1, technology2));
 
         specialization.setVacancy(daoVacancy.findId(1));
-        specialization.setLevel(daoLevel.findId(1));
+
 
         specialization1.setVacancy(daoVacancy.findId(2));
-        specialization1.setLevel(daoLevel.findId(2));
+
 
         specialization2.setVacancy(daoVacancy.findId(3));
-        specialization2.setLevel(daoLevel.findId(2));
+
 
         specialization3.setVacancy(daoVacancy.findId(4));
-        specialization3.setLevel(daoLevel.findId(3));
+
 
         daoSpecialization.update(specialization);
         daoSpecialization.update(specialization1);
@@ -209,7 +187,6 @@ public class App {
         System.out.println(daoLocation.findAll());
         System.out.println(daoSpecialization.findAll());
         System.out.println(daoVacancy.findAll());
-        System.out.println(daoLevel.findAll());
         System.out.println(daoTechnology.findAll());
 
         EntityFactoryManager.close();

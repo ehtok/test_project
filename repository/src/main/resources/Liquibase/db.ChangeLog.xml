@@ -45,6 +45,7 @@
                 id                  int auto_increment
                     primary key,
                 vacancy_description varchar(255) null,
+                working_time        varchar(255) null,
                 location_id         int null,
                 constraint FK2sc3iub2mgrmsa7fnu3m83i6g
                     foreign key (location_id) references location (id)
@@ -116,36 +117,20 @@
 
 
     <changeSet id="7" author="Roman_Yaskevich">
-        <comment>create table level</comment>
-        <sql>
-            create table level
-            (
-                id    int auto_increment
-                    primary key,
-                Level varchar(255) null
-            )
-        </sql>
-        <rollback>
-            drop table level
-        </rollback>
-    </changeSet>
-
-    <changeSet id="8" author="Roman_Yaskevich">
         <comment>create table specialization</comment>
         <sql>
             create table specialization
             (
-                id         int auto_increment
+                id               int auto_increment
                     primary key,
-                experience varchar(255) null,
-                profession varchar(255) null,
-                salary     varchar(255) null,
-                level_id   int null,
-                vacancy_id int null,
+                experience       varchar(255) null,
+                language_level   varchar(255) null,
+                profession       varchar(255) null,
+                profession_level varchar(255) null,
+                salary           varchar(255) null,
+                vacancy_id       int null,
                 constraint FK6n115ycewj0dvu2wep9jkxf2x
-                    foreign key (vacancy_id) references vacancy (id),
-                constraint FK8inyc5sdv2ta9ekjrlgvsm17l
-                    foreign key (level_id) references level (id)
+                    foreign key (vacancy_id) references vacancy (id)
             )
         </sql>
         <rollback>
@@ -153,21 +138,36 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="9" author="Roman_Yaskevich">
+    <changeSet id="8" author="Roman_Yaskevich">
         <comment>create table technology</comment>
         <sql>
             create table technology
             (
-                id                int auto_increment
+                id              int auto_increment
                     primary key,
-                name_technology   varchar(255) null,
-                specialization_id int null,
-                constraint FK47gu0vvotfr2un5aouk4tqanb
-                    foreign key (specialization_id) references specialization (id)
+                name_technology varchar(255) null
             )
         </sql>
         <rollback>
             drop table technology
+        </rollback>
+    </changeSet>
+
+    <changeSet id="9" author="Roman_Yaskevich">
+        <comment>create table technology_specialization</comment>
+        <sql>
+            create table technology_specialization
+            (
+                id_specialization int not null,
+                id_technology     int not null,
+                constraint FKaa9xifra5xihyu6c3990mpd1f
+                    foreign key (id_specialization) references specialization (id),
+                constraint FKgqc3cfmrpe3ds2jmgwdbrabgi
+                    foreign key (id_technology) references technology (id)
+            );
+        </sql>
+        <rollback>
+            drop table technology_specialization
         </rollback>
     </changeSet>
 

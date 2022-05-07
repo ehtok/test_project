@@ -4,13 +4,12 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
-@EqualsAndHashCode
 @AllArgsConstructor
 @Table(name = "Specialization")
 @Entity
@@ -23,6 +22,13 @@ public class Specialization implements Serializable {
     @Column(name = "profession")
     private String profession;
 
+
+    @Column(name = "profession_level")
+    private String professionLevel;
+
+    @Column(name = "language_level")
+    private String languageLevel;
+
     @Column(name = "experience")
     private String experience;
 
@@ -33,19 +39,21 @@ public class Specialization implements Serializable {
     @JoinColumn(name = "vacancy_id")
     private Vacancy vacancy;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "level_id")
-    private Level level;
-
-    @OneToMany(mappedBy = "specialization")
-    private Set<Technology> technology;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "technology_specialization",
+            joinColumns = {@JoinColumn(name = "id_specialization")},
+            inverseJoinColumns = {@JoinColumn(name = "id_technology")})
+    private List<Technology> technology;
 
     @Override
     public String toString() {
         return "Specialization " +
                 "id = " + id +
                 ", profession = " + profession +
+                ", professionLevel = " + professionLevel +
+                ", languageLevel = " + languageLevel +
                 ", experience = " + experience +
-                ", salary = " + salary;
+                ", salary = " + salary +
+                ", vacancy = " + vacancy;
     }
 }

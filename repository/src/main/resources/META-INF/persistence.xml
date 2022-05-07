@@ -6,7 +6,6 @@
         <class>Entity.Company</class>
         <class>Entity.Vacancy</class>
         <class>Entity.Specialization</class>
-        <class>Entity.Level</class>
         <class>Entity.Technology</class>
         <class>Entity.Course</class>
         <class>Entity.Location</class>

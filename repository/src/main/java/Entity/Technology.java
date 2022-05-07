@@ -4,12 +4,12 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Getter
 @Setter
 @Builder
-@ToString
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
@@ -24,8 +24,13 @@ public class Technology implements Serializable {
     @Column(name = "name_technology")
     private String technology;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "specialization_id")
-    private Specialization specialization;
+    @ManyToMany(mappedBy = "technology")
+    private List<Specialization> specialization;
 
+    @Override
+    public String toString() {
+        return "Technology " +
+                "id = " + id +
+                ", technology = " + technology;
+    }
 }

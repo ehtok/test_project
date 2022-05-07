@@ -22,6 +22,9 @@ public class Vacancy implements Serializable {
     @Column(name = "vacancy_description")
     private String description;
 
+    @Column(name = "working_time")
+    private String workingTime;
+
     @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "location_id")
     private Location locations;
@@ -36,6 +39,8 @@ public class Vacancy implements Serializable {
     public String toString() {
         return "Vacancy " +
                 "id = " + id +
-                ", description = " + description;
+                ", description = " + description +
+                ", workingTime = " + workingTime +
+                ", locations = " + locations;
     }
 }

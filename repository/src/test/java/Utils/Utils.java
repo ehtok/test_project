@@ -5,6 +5,7 @@ import Entity.*;
 
 public class Utils {
 
+
     public static Company createCompany() {
         return Company.builder()
                 .name(ConstantsCompany.NAME_COMPANY)
@@ -33,20 +34,17 @@ public class Utils {
                 .profession(ConstantsSpecialization.SPECIALIZATION_PROFESSION)
                 .experience(ConstantsSpecialization.SPECIALIZATION_EXPERIENCE)
                 .salary(ConstantsSpecialization.SPECIALIZATION_SALARY)
+                .professionLevel(ConstantsSpecialization.PROFESSION_LEVEL)
+                .languageLevel(ConstantsSpecialization.LANGUAGE_LEVEL)
                 .build();
     }
 
     public static Vacancy createVacancy() {
         return Vacancy.builder()
                 .description(ConstantsVacancy.VACANCY_DESCRIPTION)
+                .workingTime(ConstantsVacancy.WORKING_TIME)
                 .build();
 
-    }
-
-    public static Level createLevel() {
-        return Level.builder()
-                .level(ConstantsLevel.LEVEL_NAME)
-                .build();
     }
 
     public static Technology createTechnology() {
